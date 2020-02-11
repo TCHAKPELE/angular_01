@@ -43,9 +43,14 @@ async function api_localisation(url) {
 
   var [{ geometry }] = data.features
   
-  console.log(geometry);
+  console.log(geometry.coordinates);
 
-  return geometry;
+  const x = geometry.coordinates[0];
+  const y = geometry.coordinates[1];
+
+  const result = { gps: { lat: x, lgn: y } };
+
+  return result;
 }
 
 async function api_punk(url) {
@@ -83,14 +88,15 @@ async function api_joke(url) {
 
   const { data } = await axios.get(url);
 
+  
 
 
+  const result = {
+    joke: { question: data.setup, answer: data.delivery } };
 
-  const joke = { question: data.setup, answer: data.delivery };
+  console.log(result);
 
-  console.log(joke);
-
-  return joke;
+  return result;
 }
 
 async function api_fact(url) {
